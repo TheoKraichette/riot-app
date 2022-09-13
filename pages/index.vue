@@ -1,5 +1,5 @@
 <template>
-  <Tutorial/>
+  <Search/>
 </template>
 
 <script>
