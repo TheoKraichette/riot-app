@@ -16,7 +16,9 @@
       rel="stylesheet"
     />
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-     {{ username }} is {{ level }}
+      <input type="text" v-model="myInput" />
+      <input type="submit" v-on:click="getData()" />
+      <div>{{ username }} {{ level }}</div>
     </div>
   </div>
 </template>
@@ -29,17 +31,32 @@ export default {
   data() {
     return {
       username: "Who?",
-      level: "Which level ?",
+      level: "which level ?",
     };
   },
-  mounted() {
-    axios
-      .get(
-        "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/blqlol?api_key=RGAPI-5e966363-7318-48a2-ac75-17d9623cf4d3"
-      )
-      .then((res) => (
-        this.username = res.data.name,
-        this.level = ("level " + res.data.summonerLevel)));
+  methods: {
+    getData() {
+      console.log(this.myInput);
+      if (this.myInput != null) {
+        axios
+          .get(
+            "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" +
+              this.myInput +
+              "?api_key=RGAPI-a76af830-6531-4b55-81dd-26dc42f63949"
+          )
+          .then((res) => {
+            if (res.data) {
+              (this.username = res.data.name),
+                (this.level = "is level " + res.data.summonerLevel);
+            }
+          })
+          .catch((err) => {
+            this.username = "User not found";
+            this.level = "";
+            console.log(err);
+          });
+      }
+    },
   },
 };
 </script>
