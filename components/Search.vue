@@ -69,9 +69,16 @@ export default {
         )
         .then((res) => {
           console.log(res);
-          this.wins = res.data[0].wins;
-          this.losses = res.data[0].losses;
-          this.getWinrate();
+          let datas = res.data;
+          if (datas.length > 0) {
+            this.wins = res.data[0].wins;
+            this.losses = res.data[0].losses;
+            this.getWinrate();
+          } else {
+            this.wins = 0;
+            this.losses = 0;
+            this.winrate = 0;
+          }
         });
     },
     getWinrate() {
