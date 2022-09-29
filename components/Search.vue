@@ -27,6 +27,7 @@ export default {
       wins: 0,
       looses: 0,
       winrate: 0,
+      apiKey: "RGAPI-78ab5886-ef8e-4ab6-9166-e242d6f2d593" ,
     };
   },
   methods: {
@@ -36,7 +37,7 @@ export default {
           .get(
             "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" +
             this.myInput +
-            "?api_key=RGAPI-e0a883c6-fed9-43d3-8bdf-c92d39ffec0a"
+            "?api_key=" + this.apiKey
           )
           .then((res) => {
             if (res.data) {
@@ -58,7 +59,7 @@ export default {
         .get(
           "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/" +
           userPuuid +
-          "/ids?start=0&count=19&api_key=RGAPI-e0a883c6-fed9-43d3-8bdf-c92d39ffec0a"
+          "/ids?start=0&count=19&api_key=" + this.apiKey
         )
         .then((res) => {
           this.listMatch = res.data;
@@ -71,7 +72,7 @@ export default {
           .get(
             "https://europe.api.riotgames.com/lol/match/v5/matches/" +
             match +
-            "?api_key=RGAPI-e0a883c6-fed9-43d3-8bdf-c92d39ffec0a"
+            "?api_key=" + this.apiKey
           )
           .then((res, win) => {
             res.data.info.participants.forEach((user) => {
