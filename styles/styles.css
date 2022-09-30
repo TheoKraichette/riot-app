@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+.title {
+  padding-top: 8px;
+  padding-left: 8px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 50px;
+  color: #454545;
+  letter-spacing: -0.05em;
+  text-transform: capitalize;
+}
+.ornot {
+  padding-left: 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 3px;
+  letter-spacing: -0.05em;
+  color: #000000;
+  opacity: 0.2;
+}
+.title .ed {
+  color: #ff3f3f;
+}
+
+.main {
+  min-height: 80vh;
+}
+
+.now {
+  text-align: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 40px;
+  letter-spacing: -0.05em;
+  text-transform: lowercase;
+  color: #000000;
+  opacity: 0.5;
+}
+
+.input {
+  text-indent: 20px;
+  width: 500px;
+  height: 50px;
+  background: #fcfcfc;
+  border: 1px solid #d9d9d9;
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 35px;
+}
+
+.send {
+  position: relative;
+  left: -35px;
+  top: 2px;
+}
