@@ -1,12 +1,39 @@
 <template>
-  <div>
+  <div
+    v-bind:style="[
+      this.winrate !== ''
+        ? this.winrate >= 51
+          ? { 'background-color': '#CFFFD4', height: '100vh' }
+          : this.winrate < 50
+          ? { 'background-color': '#FFCFCF', height: '100vh' }
+          : { 'background-color': '#CCCCCC', height: '100vh' }
+        : { 'background-color': '#FFFFFF', height: '100vh' },
+    ]"
+  >
     <header>
       <h1 class="title">Boost<span class="ed">ed</span>.</h1>
       <h2 class="ornot">or not</h2>
     </header>
     <main class="main flex items-top justify-center sm:items-center sm:pt-0">
       <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-        <div class="now">Now, see if u r boosted.</div>
+        <div class="now">
+          {{ now }}
+        </div>
+        <div v-if="this.winrate !== '' && this.username !== ''" class="boosted">
+          {{ username }}
+          <span>is</span>
+          <span v-if="this.winrate < 50">not</span>
+          <span v-if="this.winrate >= 50 && this.winrate < 51"
+            >at his good ranking</span
+          >
+          <span
+            v-if="this.winrate < 50 || this.winrate >= 51"
+            v-bind:style="[
+              this.winrate > 50 ? { color: '#3FFF52' } : { color: '#FF3F3F' },
+            ]"
+            >boosted</span
+          >.
+        </div>
         <input
           class="input"
           type="text"
@@ -27,7 +54,6 @@
             />
           </svg>
         </button>
-        <div>{{ username }} {{ level }} {{ winrate }}</div>
       </div>
     </main>
   </div>
@@ -42,11 +68,12 @@ export default {
     return {
       userId: "",
       username: "",
+      now: "now, see if u r boosted.",
       level: "",
       wins: 0,
       losses: 0,
       winrate: "",
-      apiKey: "RGAPI-d54def72-6c63-466c-aae6-25ab9ae01094",
+      apiKey: "RGAPI-a4c7209e-d73c-4c3d-be18-778c9378a36a",
     };
   },
   methods: {
@@ -61,6 +88,7 @@ export default {
           )
           .then((res) => {
             if (res.data) {
+              this.now = "";
               (this.userId = res.data.id),
                 (this.username = res.data.name),
                 (this.level = "is level " + res.data.summonerLevel);
@@ -68,9 +96,9 @@ export default {
             }
           })
           .catch((err) => {
-            this.username = "User not found";
-            this.level = "";
-            this.winrate = "";
+            this.now = "User not found";
+            this.username = "";
+            this.winrate = 50.5;
             console.log(err);
           });
       }
@@ -93,15 +121,15 @@ export default {
           } else {
             this.wins = 0;
             this.losses = 0;
-            this.winrate = "winrate: 0%";
+            this.winrate = 0;
           }
         });
     },
     getWinrate() {
-      return (this.winrate =
-        "winrate: " +
-        ((this.wins / (this.wins + this.losses)) * 100).toFixed(2) +
-        "%");
+      return (this.winrate = (
+        (this.wins / (this.wins + this.losses)) *
+        100
+      ).toFixed(2));
     },
   },
 };
